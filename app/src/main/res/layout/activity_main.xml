@@ -64,7 +64,7 @@
             android:padding="@dimen/_14sdp">
 
             <TextView
-                android:id="@+id/textViews"
+                android:id="@+id/textMemoryInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/memory_info"
@@ -101,15 +101,15 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <LinearLayout
-                android:id="@+id/layoutClients"
+                android:id="@+id/layoutData"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@id/layoutImpacted"
+                app:layout_constraintEnd_toStartOf="@id/layoutRam"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViews">
+                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_28sdp"
@@ -126,7 +126,7 @@
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/textViewData"
+                    android:id="@+id/textDataValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -136,15 +136,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutImpacted"
+                android:id="@+id/layoutRam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@id/layoutFollowing"
-                app:layout_constraintStart_toEndOf="@id/layoutClients"
-                app:layout_constraintTop_toBottomOf="@id/textViews">
+                app:layout_constraintEnd_toStartOf="@id/layoutSwap"
+                app:layout_constraintStart_toEndOf="@id/layoutData"
+                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_28sdp"
@@ -161,7 +161,7 @@
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/textViewRam"
+                    android:id="@+id/textRamValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -171,15 +171,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutFollowing"
+                android:id="@+id/layoutSwap"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/layoutImpacted"
-                app:layout_constraintTop_toBottomOf="@id/textViews">
+                app:layout_constraintStart_toEndOf="@id/layoutRam"
+                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_28sdp"
@@ -196,7 +196,7 @@
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/textViewSwap"
+                    android:id="@+id/textSwapValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -296,7 +296,7 @@
                     android:padding="@dimen/_16sdp">
 
                     <TextView
-                        android:id="@+id/expand"
+                        android:id="@+id/textExpandBy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +315,7 @@
                         android:valueTo="8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/expand"
+                        app:layout_constraintTop_toBottomOf="@id/textExpandBy"
                         android:enabled="false"
                         tools:ignore="SpeakableTextPresentCheck" />
 

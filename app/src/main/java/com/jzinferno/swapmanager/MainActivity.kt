@@ -32,17 +32,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateMemoryInfo() {
-        val textViewData = findViewById<TextView>(R.id.textViewData)
-        val textViewRam = findViewById<TextView>(R.id.textViewRam)
-        val textViewSwap = findViewById<TextView>(R.id.textViewSwap)
+        val textViewData = findViewById<TextView>(R.id.textDataValue)
+        val textViewRam = findViewById<TextView>(R.id.textRamValue)
+        val textViewSwap = findViewById<TextView>(R.id.textSwapValue)
 
-        val availStorageMemory = getRound(getAvailDataSize())
-        textViewData.text = "$availStorageMemory"
-
+        val availDataMemory = getRound(getAvailDataSize())
         val totalRamMemory = getRound(MemInfo().ramTotal)
-        textViewRam.text = "$totalRamMemory"
-
         val totalSwapMemory = getRound(MemInfo().swapTotal)
+
+        textViewData.text = "$availDataMemory"
+        textViewRam.text = "$totalRamMemory"
         textViewSwap.text = "$totalSwapMemory"
     }
 
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    ramSwitch.isChecked = Swap().exist()
                     ramSlider.isEnabled = !ramSwitch.isChecked
                     updateMemoryInfo()
                 }
