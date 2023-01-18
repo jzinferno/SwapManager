@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
+                ramSlider.isEnabled = !ramSwitch.isChecked
                 getToast(":)")
 
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -86,17 +87,15 @@ class MainActivity : AppCompatActivity() {
                             ramSwitch.isClickable = true
                             getToast("Done")
                         }
-
-                        ramSlider.isEnabled = false
                     } else {
                         ramSwitch.isClickable = false
                         if (Swap().stop()) {
                             ramSwitch.isClickable = true
                             getToast("Done")
                         }
-
-                        ramSlider.isEnabled = true
                     }
+
+                    ramSlider.isEnabled = !ramSwitch.isChecked
                     updateMemoryInfo()
                 }
 
