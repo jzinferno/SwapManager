@@ -266,12 +266,13 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         style="?attr/materialSwitchStyle"
-                        android:id="@+id/switch1"
+                        android:id="@+id/switchRam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:checked="true" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -305,7 +306,7 @@
                         android:textSize="@dimen/_11ssp"/>
 
                     <com.google.android.material.slider.Slider
-                        android:id="@+id/slider"
+                        android:id="@+id/sliderRam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:stepSize="2"
@@ -321,7 +322,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_2gb"
-                        app:layout_constraintTop_toBottomOf="@id/slider"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:textSize="@dimen/_11ssp"
@@ -332,7 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_4gb"
-                        app:layout_constraintTop_toBottomOf="@id/slider"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
                         app:layout_constraintStart_toEndOf="@id/textRam1"
                         app:layout_constraintEnd_toStartOf="@id/textRam3"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -344,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_6gb"
-                        app:layout_constraintTop_toBottomOf="@id/slider"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
                         app:layout_constraintStart_toEndOf="@id/textRam2"
                         app:layout_constraintEnd_toStartOf="@id/textRam4"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -356,7 +357,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_8gb"
-                        app:layout_constraintTop_toBottomOf="@id/slider"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:textSize="@dimen/_11ssp"

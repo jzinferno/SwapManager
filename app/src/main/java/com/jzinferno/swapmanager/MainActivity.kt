@@ -53,9 +53,10 @@ class MainActivity : AppCompatActivity() {
         val appFilesDir = ContextWrapper(this).filesDir.path.toString()
         Shell().execute("mkdir -p $appFilesDir", false)
 
-        val ramSlider = findViewById<Slider>(R.id.slider)
-        val ramSwitch = findViewById<SwitchCompat>(R.id.switch1)
-        ramSwitch.isChecked = Swap().exist()
+        val ramSlider = findViewById<Slider>(R.id.sliderRam)
+        val ramSwitch = findViewById<SwitchCompat>(R.id.switchRam)
+
+        if (!Swap().exist()) ramSwitch.isChecked = false
 
         if (!RootChecker().isRootGranted()) {
             ramSlider.isEnabled = false
