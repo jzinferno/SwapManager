@@ -269,6 +269,7 @@
                         android:id="@+id/switchRam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -315,6 +316,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/expand"
+                        android:enabled="false"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView

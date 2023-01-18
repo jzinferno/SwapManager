@@ -9,6 +9,21 @@ class Swap {
     private val swapExist = File(swapFile).exists()
 
 
+    fun getSliderValue(filePath: String): Int {
+        val res = if (File(filePath).exists()) {
+            Shell().getOutput("cat $filePath")
+        } else {
+            "2"
+        }
+        return res.toInt()
+    }
+
+
+    fun saveSliderValue(int: Int, filePath: String) {
+        Shell().execute("echo $int > $filePath", false)
+    }
+
+
     fun exist(): Boolean {
         return swapExist
     }

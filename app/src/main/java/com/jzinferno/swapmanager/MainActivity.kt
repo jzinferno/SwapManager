@@ -50,32 +50,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val appFilesDir = ContextWrapper(this).filesDir.path.toString()
-        Shell().execute("mkdir -p $appFilesDir", false)
-
         val ramSlider = findViewById<Slider>(R.id.sliderRam)
         val ramSwitch = findViewById<SwitchCompat>(R.id.switchRam)
 
+        val homeDir = ContextWrapper(this).filesDir.path.toString()
+        Shell().execute("mkdir -p $homeDir", false)
+
         if (!Swap().exist()) ramSwitch.isChecked = false
 
-        if (!RootChecker().isRootGranted()) {
-            ramSlider.isEnabled = false
-            ramSwitch.isClickable = false
-        }
+        ramSlider.value = Swap().getSliderValue("${homeDir}/value").toFloat()
 
-        if (!File("${appFilesDir}/value").exists()) {
-            Shell().execute("echo 2 > ${appFilesDir}/value", false)
-        }
-        ramSlider.value = Shell().getOutput("cat ${appFilesDir}/value").toFloat()
-
-        ramSlider.addOnChangeListener(Slider.OnChangeListener { slider, _, _ -> Shell().execute(
-            "echo ${slider.value.toInt()} > ${appFilesDir}/value",
-            false
-        ) })
+        ramSlider.addOnChangeListener(Slider.OnChangeListener { slider, _, _ ->
+            Swap().saveSliderValue(slider.value.toInt(), "${homeDir}/value")
+        })
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
                 ramSlider.isEnabled = !ramSwitch.isChecked
+                ramSwitch.isEnabled = true
                 getToast(":)")
 
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -83,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (isChecked) {
                         ramSwitch.isClickable = false
-                        if (Swap().start(Shell().getOutput("cat ${appFilesDir}/value").toInt())) {
+                        if (Swap().start(Swap().getSliderValue("${homeDir}/value"))) {
                             ramSwitch.isClickable = true
                             getToast("Done")
                         }
@@ -95,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
+                    ramSwitch.isChecked = Swap().exist()
                     ramSlider.isEnabled = !ramSwitch.isChecked
                     updateMemoryInfo()
                 }
