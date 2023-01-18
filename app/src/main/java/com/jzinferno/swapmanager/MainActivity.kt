@@ -77,11 +77,23 @@ class MainActivity : AppCompatActivity() {
                 getToast(":)")
 
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
+                    getToast("Wait...")
+
                     if (isChecked) {
-                        Swap().start(Shell().getOutput("cat ${appFilesDir}/value").toInt())
+                        ramSwitch.isClickable = false
+                        if (Swap().start(Shell().getOutput("cat ${appFilesDir}/value").toInt())) {
+                            ramSwitch.isClickable = true
+                            getToast("Done")
+                        }
+
                         ramSlider.isEnabled = false
                     } else {
-                        Swap().stop()
+                        ramSwitch.isClickable = false
+                        if (Swap().stop()) {
+                            ramSwitch.isClickable = true
+                            getToast("Done")
+                        }
+
                         ramSlider.isEnabled = true
                     }
                     updateMemoryInfo()

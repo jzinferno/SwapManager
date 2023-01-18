@@ -1,6 +1,7 @@
 package com.jzinferno.swapmanager
 
 import java.io.File
+import java.io.IOException
 
 class Swap {
     private val swapPath = "/data/local/jzinferno"
@@ -13,7 +14,7 @@ class Swap {
     }
 
 
-    fun start(int: Int) {
+    fun start(int: Int): Boolean {
         var cmd = "mkdir -p ${swapPath}\n"
         if (!swapExist) {
             cmd += "fallocate -l ${int}G ${swapFile}\n" +
@@ -21,16 +22,32 @@ class Swap {
                     "mkswap ${swapFile}\n"
         }
         cmd += "swapon $swapFile"
-        Shell().execute(cmd, true)
+
+        val status: Boolean = try {
+            Shell().execute(cmd, true)
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
+        return status
     }
 
 
-    fun stop() {
+    fun stop(): Boolean {
         var cmd = ""
         if (swapExist) {
             cmd += "swapoff ${swapFile}\n"
         }
         cmd += "rm -rf $swapFile"
-        Shell().execute(cmd, true)
+
+        val status: Boolean = try {
+            Shell().execute(cmd, true)
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
+        return status
     }
 }
