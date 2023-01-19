@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
 
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 
@@ -95,8 +94,8 @@ class MainActivity : AppCompatActivity() {
             getToast("Device isn't Rooted")
         }
 
-        val buttonGetUpdate = findViewById<Button>(R.id.buttonUpdate)
-        buttonGetUpdate.setOnClickListener {
+        val textRefresh = findViewById<TextView>(R.id.textRefresh)
+        textRefresh.setOnClickListener {
             updateMemoryInfo()
         }
     }

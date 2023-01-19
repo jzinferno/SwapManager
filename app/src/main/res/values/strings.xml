@@ -2,7 +2,7 @@
     <string name="app_name">Swap Manager</string>
     <string name="memory_extension">Memory extension</string>
     <string name="memory_info">Memory info</string>
-    <string name="update">update</string>
+    <string name="refresh">refresh</string>
     <string name="data">DATA</string>
     <string name="ram">RAM</string>
     <string name="swap">SWAP</string>
