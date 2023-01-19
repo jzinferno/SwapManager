@@ -13,7 +13,7 @@ class Swap {
         val res = if (File(filePath).exists()) {
             Shell().getOutput("cat $filePath")
         } else {
-            if (File("${swapFile}_size").exists()) {
+            if (RootChecker().isRootGranted() && File("${swapFile}_size").exists()) {
                 Shell().getOutput("su -c cat ${swapFile}_size")
             } else {
                 "2"
