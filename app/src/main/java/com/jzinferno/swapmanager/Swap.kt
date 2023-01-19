@@ -13,7 +13,11 @@ class Swap {
         val res = if (File(filePath).exists()) {
             Shell().getOutput("cat $filePath")
         } else {
-            "2"
+            if (File("${swapFile}_size").exists()) {
+                Shell().getOutput("su -c cat ${swapFile}_size")
+            } else {
+                "2"
+            }
         }
         return res.toInt()
     }
@@ -34,7 +38,8 @@ class Swap {
         if (!swapExist) {
             cmd += "fallocate -l ${int}G ${swapFile}\n" +
                     "chmod 600 ${swapFile}\n" +
-                    "mkswap ${swapFile}\n"
+                    "mkswap ${swapFile}\n" +
+                    "echo $int > ${swapFile}_size\n"
         }
         cmd += "swapon $swapFile"
 
@@ -52,9 +57,10 @@ class Swap {
     fun stop(): Boolean {
         var cmd = ""
         if (swapExist) {
-            cmd += "swapoff ${swapFile}\n"
+            cmd += "swapoff ${swapFile}\n" +
+                    "rm -rf ${swapFile}\n"
         }
-        cmd += "rm -rf $swapFile"
+        cmd += "rm -rf ${swapFile}_size"
 
         val status: Boolean = try {
             Shell().execute(cmd, true)

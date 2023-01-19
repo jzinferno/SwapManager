@@ -76,13 +76,11 @@ class MainActivity : AppCompatActivity() {
                         ramSwitch.isClickable = false
                         if (Swap().start(Swap().getSliderValue("${homeDir}/value"))) {
                             ramSwitch.isClickable = true
-                            getToast("Done")
                         }
                     } else {
                         ramSwitch.isClickable = false
                         if (Swap().stop()) {
                             ramSwitch.isClickable = true
-                            getToast("Done")
                         }
                     }
 
