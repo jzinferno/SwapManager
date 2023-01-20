@@ -9,6 +9,11 @@ class Swap {
     private val swapExist = File(swapFile).exists()
 
 
+    fun exist(): Boolean {
+        return swapExist
+    }
+
+
     fun getSliderValue(filePath: String): Int {
         val res = if (File(filePath).exists()) {
             Shell().getOutput("cat $filePath")
@@ -25,11 +30,6 @@ class Swap {
 
     fun saveSliderValue(int: Int, filePath: String) {
         Shell().execute("echo $int > $filePath", false)
-    }
-
-
-    fun exist(): Boolean {
-        return swapExist
     }
 
 
@@ -55,7 +55,7 @@ class Swap {
 
 
     fun stop(): Boolean {
-        var cmd = ""
+        var cmd = "mkdir -p ${swapPath}\n"
         if (swapExist) {
             cmd += "swapoff ${swapFile}\n" +
                     "rm -rf ${swapFile}\n"

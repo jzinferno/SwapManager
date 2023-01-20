@@ -72,14 +72,14 @@ class MainActivity : AppCompatActivity() {
                     getToast("Wait...")
 
                     if (isChecked) {
-                        ramSwitch.isClickable = false
+                        ramSwitch.isEnabled = false
                         if (Swap().start(Swap().getSliderValue("${homeDir}/value"))) {
-                            ramSwitch.isClickable = true
+                            ramSwitch.isEnabled = true
                         }
                     } else {
-                        ramSwitch.isClickable = false
+                        ramSwitch.isEnabled = false
                         if (Swap().stop()) {
-                            ramSwitch.isClickable = true
+                            ramSwitch.isEnabled = true
                         }
                     }
 
