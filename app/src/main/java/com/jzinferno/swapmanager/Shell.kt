@@ -44,7 +44,7 @@ class Shell {
 
     fun getReturnValue(command: String, runAsRoot: Boolean): Int {
         val shell = if (runAsRoot) "su -mm" else "sh"
-        var value = 0
+        var value = 1
         try {
             val process = Runtime.getRuntime().exec(shell)
             val stdin: OutputStream = process.outputStream

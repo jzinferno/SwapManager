@@ -246,7 +246,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:checked="true" />
+                        android:checked="false" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -276,7 +276,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:text="@string/expand_by"
                         android:textColor="@color/secondary_text"
-                        android:textStyle="bold"
                         android:textSize="@dimen/_11ssp"/>
 
                     <com.google.android.material.slider.Slider
