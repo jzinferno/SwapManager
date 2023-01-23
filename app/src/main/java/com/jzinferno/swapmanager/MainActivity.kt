@@ -2,13 +2,10 @@ package com.jzinferno.swapmanager
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import android.content.ContextWrapper
-import android.content.res.AssetManager
 
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
-import android.util.Log
 
 import android.widget.TextView
 import android.widget.Toast
@@ -25,12 +22,24 @@ class MainActivity : AppCompatActivity() {
         val ramSlider = findViewById<Slider>(R.id.sliderRam)
         val ramSwitch = findViewById<SwitchCompat>(R.id.switchRam)
 
-        val homeDir = ContextWrapper(this).filesDir.absolutePath
+        val homeDir = filesDir.absolutePath
         val scriptsDir = "${homeDir}/scripts"
         val sliderValue= "${homeDir}/value"
 
-        File(scriptsDir).mkdirs()
-        copyAssets(scriptsDir)
+        fun InputStream.toFile(to: File) {
+            this.use { input->
+                to.outputStream().use { out->
+                    input.copyTo(out)
+                }
+            }
+        }
+
+        if (!File(scriptsDir).exists()) {
+            File(scriptsDir).mkdirs()
+            assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
+            assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
+        }
+
         if (swapExist) ramSwitch.isChecked = true
 
         ramSlider.value = getSliderValue(sliderValue).toFloat()
@@ -129,40 +138,5 @@ class MainActivity : AppCompatActivity() {
         textViewData.text = "$availDataMemory"
         textViewRam.text = "$totalRamMemory"
         textViewSwap.text = "$totalSwapMemory"
-    }
-
-    private fun copyAssets(string: String) {
-        val assetManager: AssetManager = assets
-        var files: Array<String>? = null
-        try {
-            files = assetManager.list("")
-        } catch (e: IOException) {
-            Log.e("tag", "Failed to get asset file list.", e)
-        }
-        for (filename in files!!) {
-            var `in`: InputStream?
-            var out: OutputStream?
-            try {
-                `in` = assetManager.open(filename)
-                val outDir: String = string
-                val outFile = File(outDir, filename)
-                out = FileOutputStream(outFile)
-                copyFile(`in`, out)
-                `in`.close()
-                out.flush()
-                out.close()
-            } catch (e: IOException) {
-                Log.e("tag", "Failed to copy asset file: $filename", e)
-            }
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun copyFile(`in`: InputStream, out: OutputStream) {
-        val buffer = ByteArray(1024)
-        var read: Int
-        while (`in`.read(buffer).also { read = it } != -1) {
-            out.write(buffer, 0, read)
-        }
     }
 }

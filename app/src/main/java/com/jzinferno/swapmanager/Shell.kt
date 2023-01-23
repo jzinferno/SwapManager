@@ -8,7 +8,7 @@ import java.io.DataOutputStream
 
 class Shell {
     fun execute(command: String, runAsRoot: Boolean) {
-        val shell = if (runAsRoot) "su -mm" else "sh"
+        val shell = if (runAsRoot) "su" else "sh"
         try {
             val process = Runtime.getRuntime().exec(shell)
             val os = DataOutputStream(process.outputStream)
@@ -43,7 +43,7 @@ class Shell {
     }
 
     fun getReturnValue(command: String, runAsRoot: Boolean): Int {
-        val shell = if (runAsRoot) "su -mm" else "sh"
+        val shell = if (runAsRoot) "su" else "sh"
         var value = 1
         try {
             val process = Runtime.getRuntime().exec(shell)

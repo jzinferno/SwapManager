@@ -14,6 +14,7 @@ fi
 if [ -f $SWAPFILE ]; then
     rm -rf $SWAPFILE
 fi
+
 rm -rf "$SWAPFILE"_size
 
 exit 0
