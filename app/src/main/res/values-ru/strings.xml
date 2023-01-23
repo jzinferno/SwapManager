@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Swap Manager</string>
+    <string name="memory_extension">Расширение памяти</string>
+    <string name="memory_info">Информация о памяти</string>
+    <string name="refresh">обновить</string>
+    <string name="data">DATA</string>
+    <string name="ram">RAM</string>
+    <string name="swap">SWAP</string>
+    <string name="_0">0.0</string>
+    <string name="text_ram">При наличии избыточного свободного места в постоянной памяти её часть можно использовать для расширения ОЗУ.</string>
+    <string name="ram_expansion">Расширение ОЗУ</string>
+    <string name="_2gb">2.0 ГБ</string>
+    <string name="_4gb">4.0 ГБ</string>
+    <string name="_6gb">6.0 ГБ</string>
+    <string name="_8gb">8.0 ГБ</string>
+    <string name="jzinferno">jzinferno</string>
+    <string name="expand_by">РАСШИРИТЬ</string>
+</resources>

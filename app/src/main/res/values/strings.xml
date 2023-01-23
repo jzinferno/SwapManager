@@ -7,11 +7,8 @@
     <string name="ram">RAM</string>
     <string name="swap">SWAP</string>
     <string name="_0">0.0</string>
-    <string name="start">start</string>
-    <string name="stop">stop</string>
     <string name="text_ram">When enough storage space is available, you an use part of it to expand you RAM.</string>
     <string name="ram_expansion">RAM Expansion</string>
-    <string name="links">Links</string>
     <string name="_2gb">2.0 GB</string>
     <string name="_4gb">4.0 GB</string>
     <string name="_6gb">6.0 GB</string>
