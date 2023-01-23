@@ -11,8 +11,8 @@ android {
         applicationId "com.jzinferno.swapmanager"
         minSdk 24
         targetSdk 33
-        versionCode 20230118
-        versionName "1.0"
+        versionCode 20230123
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
