@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_125sdp"
         android:background="@color/primary"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -30,6 +32,7 @@
         android:id="@+id/cardHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         app:cardBackgroundColor="@color/card_background"
@@ -202,6 +205,7 @@
                 android:id="@+id/cardView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.Material3.CardView.Elevated"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="@dimen/_14sdp"
                 android:layout_marginBottom="@dimen/_12sdp"
@@ -237,17 +241,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        style="?attr/materialSwitchStyle"
+                    <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchRam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:checked="false"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:checked="false" />
-
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -255,6 +257,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView2"
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/card_background"
@@ -272,23 +275,23 @@
                         android:id="@+id/textExpandBy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:text="@string/expand_by"
                         android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/_11ssp"/>
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.slider.Slider
                         android:id="@+id/sliderRam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:stepSize="2"
                         android:valueFrom="2"
                         android:valueTo="8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textExpandBy"
-                        android:enabled="false"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
@@ -296,46 +299,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_2gb"
-                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
-                        android:textColor="@color/secondary_text"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam" />
 
                     <TextView
                         android:id="@+id/textRam2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_4gb"
-                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
-                        app:layout_constraintStart_toEndOf="@id/textRam1"
-                        app:layout_constraintEnd_toStartOf="@id/textRam3"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
-                        android:textColor="@color/secondary_text"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textRam3"
+                        app:layout_constraintStart_toEndOf="@id/textRam1"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam" />
 
                     <TextView
                         android:id="@+id/textRam3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_6gb"
-                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
-                        app:layout_constraintStart_toEndOf="@id/textRam2"
-                        app:layout_constraintEnd_toStartOf="@id/textRam4"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
-                        android:textColor="@color/secondary_text"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/textRam4"
+                        app:layout_constraintStart_toEndOf="@id/textRam2"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam" />
 
                     <TextView
                         android:id="@+id/textRam4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_8gb"
-                        app:layout_constraintTop_toBottomOf="@id/sliderRam"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
-                        android:textColor="@color/secondary_text"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/sliderRam" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -344,5 +347,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

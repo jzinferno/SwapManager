@@ -1,14 +1,13 @@
 package com.jzinferno.swapmanager
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
-
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
 
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.materialswitch.MaterialSwitch
 
 import com.google.android.material.slider.Slider
 import java.io.*
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val ramSlider = findViewById<Slider>(R.id.sliderRam)
-        val ramSwitch = findViewById<SwitchCompat>(R.id.switchRam)
+        val ramSwitch = findViewById<MaterialSwitch>(R.id.switchRam)
 
         val homeDir = filesDir.absolutePath
         val scriptsDir = "${homeDir}/scripts"
@@ -61,9 +60,7 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             getToast("Failed")
                         }
-                    }
-
-                    if (!isChecked) {
+                    } else {
                         ramSwitch.isEnabled = false
                         if (Shell().getReturnValue("sh ${scriptsDir}/stop.sh", true) == 0) {
                             ramSwitch.isEnabled = true
