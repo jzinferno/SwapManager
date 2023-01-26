@@ -1,15 +1,18 @@
 package com.jzinferno.swapmanager
 
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
 
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.materialswitch.MaterialSwitch
-
 import com.google.android.material.slider.Slider
+
 import java.io.*
 import kotlin.math.roundToInt
 
@@ -85,6 +88,11 @@ class MainActivity : AppCompatActivity() {
         textRefresh.setOnClickListener {
             updateMemoryInfo()
         }
+
+        val fabBtn = findViewById<FloatingActionButton>(R.id.fabBtn)
+        fabBtn.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/jzinferno")))
+        }
     }
 
     override fun onResume() {
@@ -94,7 +102,6 @@ class MainActivity : AppCompatActivity() {
 
     private val swapFile = "/data/local/jzinferno/swapfile"
     private val swapExist = File(swapFile).exists()
-
 
     private fun getSliderValue(string: String): Int {
         val res = if (File(string).exists()) {

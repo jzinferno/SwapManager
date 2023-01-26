@@ -347,12 +347,12 @@
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_16sdp"
         android:layout_marginBottom="@dimen/_16sdp"
-        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:srcCompat="@drawable/ic_telegram"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
