@@ -13,6 +13,7 @@
     <string name="_4gb">4.0 ГБ</string>
     <string name="_6gb">6.0 ГБ</string>
     <string name="_8gb">8.0 ГБ</string>
-    <string name="jzinferno">jzinferno</string>
+    <string name="jzinferno">\@jzinferno</string>
     <string name="expand_by">ЗБІЛЬШИТИ НА</string>
+    <string name="links">Посилання</string>
 </resources>

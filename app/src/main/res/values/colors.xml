@@ -7,4 +7,5 @@
     <color name="primary_text">#565B65</color>
     <color name="secondary_text">#9B9A9D</color>
     <color name="white_black">#000000</color>
+    <color name="link_icons">#313131</color>
 </resources>

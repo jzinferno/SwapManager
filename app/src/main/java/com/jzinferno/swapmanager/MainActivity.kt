@@ -6,10 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
+import android.widget.ImageView
 
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.cardview.widget.CardView
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 
@@ -55,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                 ramSwitch.isEnabled = true
                 getToast(":)")
 
+                findViewById<CardView>(R.id.cardView1).setOnClickListener {
+                    ramSwitch.isChecked = !ramSwitch.isChecked
+                }
+
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         ramSwitch.isEnabled = false
@@ -89,9 +94,12 @@ class MainActivity : AppCompatActivity() {
             updateMemoryInfo()
         }
 
-        val fabBtn = findViewById<FloatingActionButton>(R.id.fabBtn)
-        fabBtn.setOnClickListener {
+        findViewById<ImageView>(R.id.imageTelegram).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/jzinferno")))
+        }
+
+        findViewById<ImageView>(R.id.imageGithub).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jzinferno")))
         }
     }
 

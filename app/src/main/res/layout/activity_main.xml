@@ -261,7 +261,8 @@
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="@dimen/_14sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@id/cardView3"
                 app:layout_constraintTop_toBottomOf="@id/cardView1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -342,19 +343,81 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardCornerRadius="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_16sdp">
+
+                    <TextView
+                        android:id="@+id/textViewLinks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/links"
+                        android:textColor="@color/white_black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/textViewJzinferno"/>
+
+                    <TextView
+                        android:id="@+id/textViewJzinferno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/jzinferno"
+                        android:tint="@color/link_icons"
+                        android:textSize="@dimen/_11ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLinks"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageTelegram"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:src="@drawable/ic_telegram"
+                        android:tint="@color/link_icons"
+                        android:focusable="true"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        app:layout_constraintTop_toTopOf="@id/textViewJzinferno"
+                        app:layout_constraintStart_toEndOf="@id/textViewJzinferno"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewJzinferno"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageGithub"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_github"
+                        android:tint="@color/link_icons"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewJzinferno"
+                        app:layout_constraintStart_toEndOf="@id/imageTelegram"
+                        app:layout_constraintTop_toTopOf="@id/textViewJzinferno"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        app:srcCompat="@drawable/ic_telegram"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
