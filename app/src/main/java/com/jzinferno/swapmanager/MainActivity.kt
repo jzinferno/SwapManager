@@ -1,20 +1,18 @@
 package com.jzinferno.swapmanager
 
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
 import android.widget.ImageView
-
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
-
-import java.io.*
+import java.io.File
+import java.io.InputStream
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -55,10 +53,6 @@ class MainActivity : AppCompatActivity() {
                 ramSlider.isEnabled = !ramSwitch.isChecked
                 ramSwitch.isEnabled = true
                 getToast(":)")
-
-                findViewById<CardView>(R.id.cardView1).setOnClickListener {
-                    ramSwitch.isChecked = !ramSwitch.isChecked
-                }
 
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {

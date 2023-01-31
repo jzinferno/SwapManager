@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.SwapManager" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@android:color/system_accent1_300</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/background</item>
+    </style>
+
+    <color name="primary">@android:color/system_accent1_500</color>
+    <color name="background">@android:color/system_accent1_900</color>
+    <color name="card_background">@android:color/system_accent1_800</color>
+</resources>

@@ -4,4 +4,8 @@
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/background</item>
     </style>
+
+    <color name="primary">#667AFF</color>
+    <color name="background">#252C4B</color>
+    <color name="card_background">#27325F</color>
 </resources>

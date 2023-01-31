@@ -26,7 +26,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_24ssp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardHeader"
@@ -50,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/memory_info"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/white_black"
                 android:textSize="@dimen/_14ssp"
                 android:paddingStart="@dimen/_3sdp"
                 android:paddingEnd="@dimen/_3sdp"
@@ -61,20 +62,20 @@
                 android:id="@+id/textRefresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/refresh"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/_12ssp"
-                android:focusable="true"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:paddingStart="@dimen/_3ssp"
                 android:paddingEnd="@dimen/_3sdp"
                 android:paddingBottom="@dimen/_1sdp"
                 android:shadowRadius="2"
+                android:text="@string/refresh"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="@id/textMemoryInfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textMemoryInfo"
-                app:layout_constraintBottom_toBottomOf="@id/textMemoryInfo"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <LinearLayout
                 android:id="@+id/layoutData"
@@ -98,7 +99,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/data"
-                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/white_black"
                     android:textSize="@dimen/_16ssp" />
 
             </LinearLayout>
@@ -133,7 +133,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/ram"
-                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
@@ -141,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/white_black"
                     android:textSize="@dimen/_16ssp" />
 
             </LinearLayout>
@@ -168,7 +167,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/swap"
-                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
@@ -176,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/white_black"
                     android:textSize="@dimen/_16ssp" />
 
             </LinearLayout>
@@ -233,7 +231,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/text_ram"
                         android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/secondary_text"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_marginEnd="@dimen/_50sdp"
                         app:layout_constraintTop_toBottomOf="@id/textView1"
@@ -275,7 +272,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/expand_by"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/white_black"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -298,7 +295,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_2gb"
-                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -309,7 +305,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_4gb"
-                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/textRam3"
@@ -321,7 +316,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_6gb"
-                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/textRam4"
@@ -333,7 +327,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_8gb"
-                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
