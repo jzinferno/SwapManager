@@ -43,16 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         if (swapExist) ramSwitch.isChecked = true
 
-        val checkAvailDataSize: Boolean = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
         ramSlider.value = getSliderValue(sliderValue).toFloat()
         ramSlider.addOnChangeListener { _, value, _ ->
             Shell().execute("echo ${value.toInt()} > $sliderValue", false)
-            ramSwitch.isEnabled = checkAvailDataSize
+            ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
         }
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
-                ramSwitch.isEnabled = checkAvailDataSize
+                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
                 ramSlider.isEnabled = !ramSwitch.isChecked
                 getToast(":)")
 
