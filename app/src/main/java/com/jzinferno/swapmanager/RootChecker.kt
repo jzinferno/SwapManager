@@ -1,11 +1,11 @@
 package com.jzinferno.swapmanager
 
+import com.topjohnwu.superuser.Shell
 import java.io.File
 
 class RootChecker {
     fun isRootGranted(): Boolean {
-        val result = Shell().getOutput("su -c whoami")
-        return result == "root"
+        return Shell.cmd("su -c true").exec().isSuccess
     }
 
     fun isRootPresent() : Boolean {

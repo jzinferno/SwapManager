@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
+import com.topjohnwu.superuser.Shell
 import java.io.File
 import java.io.InputStream
 import kotlin.math.roundToInt
@@ -39,42 +40,46 @@ class MainActivity : AppCompatActivity() {
             File(scriptsDir).mkdirs()
             assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
             assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
+            assets.open("getValue.sh").toFile(File(scriptsDir, "getValue.sh"))
+            Shell.cmd("chmod 755 ${scriptsDir}/*").submit()
         }
 
         if (swapExist) ramSwitch.isChecked = true
 
-        ramSlider.value = getSliderValue(sliderValue).toFloat()
+        ramSlider.value = getSliderValue("${scriptsDir}/getValue.sh" , sliderValue).toFloat()
         ramSlider.addOnChangeListener { _, value, _ ->
-            Shell().execute("echo ${value.toInt()} > $sliderValue", false)
-            ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
+            Shell.cmd("echo ${value.toInt()} > $sliderValue").submit()
+            ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue("${scriptsDir}/getValue.sh", sliderValue)
         }
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
-                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
+                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue("${scriptsDir}/getValue.sh", sliderValue)
                 ramSlider.isEnabled = !ramSwitch.isChecked
                 getToast(":)")
 
-                ramSwitch.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        ramSwitch.isEnabled = false
-                        if (Shell().getReturnValue("sh ${scriptsDir}/start.sh ${getSliderValue(sliderValue)}", true) == 0) {
-                            ramSwitch.isEnabled = true
-                        } else {
-                            getToast("Failed")
+                ramSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+                    run {
+                        if (isChecked) {
+                            buttonView.isEnabled = false
+                            if (Shell.cmd("su -c ${scriptsDir}/start.sh ${getSliderValue("${scriptsDir}/getValue.sh", sliderValue)}").exec().isSuccess) {
+                                buttonView.isEnabled = true
+                            } else {
+                                getToast("Failed")
+                            }
                         }
-                    } else {
-                        ramSwitch.isEnabled = false
-                        if (Shell().getReturnValue("sh ${scriptsDir}/stop.sh", true) == 0) {
-                            ramSwitch.isEnabled = true
+                        if (!isChecked) {
+                            buttonView.isEnabled = false
+                            if (Shell.cmd("su -c ${scriptsDir}/stop.sh").exec().isSuccess) {
+                                buttonView.isEnabled = true
+                            } else {
+                                getToast("Failed")
+                            }
                         }
-                        else {
-                            getToast("Failed")
-                        }
-                    }
 
-                    ramSlider.isEnabled = !ramSwitch.isChecked
-                    updateMemoryInfo()
+                        ramSlider.isEnabled = !isChecked
+                        updateMemoryInfo()
+                    }
                 }
 
             } else {
@@ -106,17 +111,17 @@ class MainActivity : AppCompatActivity() {
     private val swapFile = "/data/local/jzinferno/swapfile"
     private val swapExist = File(swapFile).exists()
 
-    private fun getSliderValue(string: String): Int {
+    private fun getSliderValue(script: String, string: String): Int {
         val res = if (File(string).exists()) {
-            Shell().getOutput("cat $string")
+            Shell.cmd("$script $string").exec().code
         } else {
             if (RootChecker().isRootGranted() && File("${swapFile}_size").exists()) {
-                Shell().getOutput("su -c cat ${swapFile}_size")
+                Shell.cmd("su -c $script ${swapFile}_size").exec().code
             } else {
-                "2"
+                2
             }
         }
-        return res.toInt()
+        return res
     }
 
     private fun getAvailDataSize(): Long {

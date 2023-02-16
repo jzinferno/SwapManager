@@ -1,20 +1,12 @@
 #!/system/bin/sh
 
-# shellcheck disable=SC2034
-SWAPDIR="/data/local/jzinferno"
-SWAPFILE=$SWAPDIR"/swapfile"
+SWAPFILE="/data/local/jzinferno/swapfile"
 
-if [ -f $SWAPFILE ]; then
-    grep $SWAPFILE "/proc/swaps"
-    if [ $? = 0 ]; then
-        swapoff $SWAPFILE
-    fi
+grep "$SWAPFILE" /proc/swaps
+if [ $? -eq 0 ]; then
+    swapoff $SWAPFILE
 fi
 
-if [ -f $SWAPFILE ]; then
-    rm -rf $SWAPFILE
-fi
-
-rm -rf "$SWAPFILE"_size
+rm -rf $SWAPFILE "$SWAPFILE"_size
 
 exit 0
