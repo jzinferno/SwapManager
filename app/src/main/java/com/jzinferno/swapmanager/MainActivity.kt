@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
                 ramSwitch.isChecked = ("su -c grep \"$swapFile\" /proc/swaps".runCommandStatus() == 0)
-                ramSlider.value = getSliderValue().toFloat()
+                ramSlider.value = getSliderValue()
 
                 ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > ramSlider.value
                 ramSlider.isEnabled = !ramSwitch.isChecked
@@ -108,12 +108,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSliderValue(): Int {
-        return if (File(swapFile).exists() && RootChecker().isRootGranted()) {
+    private fun getSliderValue(): Float {
+        val result = if (File(swapFile).exists() && RootChecker().isRootGranted()) {
             getSwapSizeGB()
         } else {
-            2
+            2.0
         }
+        return result.toFloat()
     }
 
     private fun getAvailDataSize(): Long {
