@@ -25,52 +25,45 @@ class MainActivity : AppCompatActivity() {
 
         val homeDir = filesDir.absolutePath
         val scriptsDir = "${homeDir}/scripts"
-        val sliderValue= "${homeDir}/value"
 
         fun InputStream.toFile(to: File) {
-            this.use { input->
-                to.outputStream().use { out->
+            this.use { input ->
+                to.outputStream().use { out ->
                     input.copyTo(out)
                 }
             }
         }
 
-        if (!File(scriptsDir).exists()) {
-            File(scriptsDir).mkdirs()
-            assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
-            assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
+        if (File(scriptsDir).exists()) {
+            File(scriptsDir).deleteRecursively()
         }
 
-        if (swapExist) ramSwitch.isChecked = true
-
-        ramSlider.value = getSliderValue(sliderValue).toFloat()
-        ramSlider.addOnChangeListener { _, value, _ ->
-            Shell().execute("echo ${value.toInt()} > $sliderValue", false)
-            ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
-        }
+        File(scriptsDir).mkdirs()
+        assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
+        assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
-                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > getSliderValue(sliderValue)
+                ramSwitch.isChecked = ("su -c grep \"$swapFile\" /proc/swaps".runCommandStatus() == 0)
+                ramSlider.value = getSliderValue().toFloat()
+
+                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > ramSlider.value
                 ramSlider.isEnabled = !ramSwitch.isChecked
                 getToast(":)")
 
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         ramSwitch.isEnabled = false
-                        if (Shell().getReturnValue("sh ${scriptsDir}/start.sh ${getSliderValue(sliderValue)}", true) == 0) {
-                            ramSwitch.isEnabled = true
-                        } else {
+                        if ("su -c sh ${scriptsDir}/start.sh ${ramSlider.value.toInt()}".runCommandStatus() != 0) {
                             getToast("Failed")
                         }
+                        ramSwitch.isEnabled = true
                     } else {
                         ramSwitch.isEnabled = false
-                        if (Shell().getReturnValue("sh ${scriptsDir}/stop.sh", true) == 0) {
-                            ramSwitch.isEnabled = true
-                        }
-                        else {
+                        if ("su -c sh ${scriptsDir}/stop.sh".runCommandStatus() != 0) {
                             getToast("Failed")
                         }
+                        ramSwitch.isEnabled = true
                     }
 
                     ramSlider.isEnabled = !ramSwitch.isChecked
@@ -104,19 +97,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val swapFile = "/data/local/jzinferno/swapfile"
-    private val swapExist = File(swapFile).exists()
 
-    private fun getSliderValue(string: String): Int {
-        val res = if (File(string).exists()) {
-            Shell().getOutput("cat $string")
+    private fun getSwapSizeGB(): Int {
+        val getFile = File(swapFile)
+        val sizeInGigaBytes: Int = (getFile.length().toDouble() / 1073741824).toInt()
+        return if (getFile.exists()) {
+            sizeInGigaBytes
         } else {
-            if (RootChecker().isRootGranted() && File("${swapFile}_size").exists()) {
-                Shell().getOutput("su -c cat ${swapFile}_size")
-            } else {
-                "2"
-            }
+            0
         }
-        return res.toInt()
+    }
+
+    private fun getSliderValue(): Int {
+        return if (File(swapFile).exists() && RootChecker().isRootGranted()) {
+            getSwapSizeGB()
+        } else {
+            2
+        }
     }
 
     private fun getAvailDataSize(): Long {

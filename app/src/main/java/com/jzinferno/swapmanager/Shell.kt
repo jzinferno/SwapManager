@@ -1,65 +1,56 @@
 package com.jzinferno.swapmanager
 
 import java.io.BufferedReader
+import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
-import java.io.OutputStream
-import java.io.DataOutputStream
+import java.util.concurrent.TimeUnit
+import java.lang.ProcessBuilder.Redirect
 
-class Shell {
-    fun execute(command: String, runAsRoot: Boolean) {
-        val shell = if (runAsRoot) "su" else "sh"
-        try {
-            val process = Runtime.getRuntime().exec(shell)
-            val os = DataOutputStream(process.outputStream)
-            os.writeBytes("$command\n")
-            os.writeBytes("exit\n")
-            os.flush()
-            try {
-                process.waitFor()
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+fun String.runCommand() {
+    val process = ProcessBuilder(*split(" ").toTypedArray())
+        .directory(File("/"))
+        .redirectOutput(Redirect.INHERIT)
+        .redirectError(Redirect.INHERIT)
+        .start()
+    if (!process.waitFor(10, TimeUnit.SECONDS)) {
+        process.destroy()
+    }
+}
+
+fun String.runCommandStatus(): Int {
+    val process = ProcessBuilder(*split(" ").toTypedArray())
+        .directory(File("/"))
+        .redirectOutput(Redirect.INHERIT)
+        .redirectError(Redirect.INHERIT)
+        .start()
+    if (!process.waitFor(10, TimeUnit.SECONDS)) {
+        process.destroy()
+    }
+    return process.exitValue()
+}
+
+fun String.runCommandOutput(): String {
+    val process = ProcessBuilder(*split(" ").toTypedArray())
+        .directory(File("/"))
+        .redirectOutput(Redirect.INHERIT)
+        .redirectError(Redirect.INHERIT)
+        .start()
+    if (!process.waitFor(10, TimeUnit.SECONDS)) {
+        process.destroy()
     }
 
-    fun getOutput(command: String): String {
-        val output = StringBuilder()
-        val p: Process
-        try {
-            p = Runtime.getRuntime().exec(command)
-            p.waitFor()
-            val reader = BufferedReader(InputStreamReader(p.inputStream))
-            var line: String
-            while (reader.readLine().also { line = it } != null) {
+    val output = StringBuilder()
+    try {
+        BufferedReader(InputStreamReader(process.inputStream)).use {reader ->
+            var line: String? = reader.readLine()
+            while (line != null) {
                 output.append(line)
+                line = reader.readLine()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-        return output.toString()
+    } catch (e: IOException) {
+        e.printStackTrace()
     }
-
-    fun getReturnValue(command: String, runAsRoot: Boolean): Int {
-        val shell = if (runAsRoot) "su" else "sh"
-        var value = 1
-        try {
-            val process = Runtime.getRuntime().exec(shell)
-            val stdin: OutputStream = process.outputStream
-            stdin.write("$command\n".toByteArray())
-            stdin.write("exit\n".toByteArray())
-            stdin.flush()
-            stdin.close()
-            process.waitFor()
-            process.destroy()
-            value = process.exitValue()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-        return value
-    }
+    return output.toString()
 }

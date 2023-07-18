@@ -4,7 +4,7 @@ import java.io.File
 
 class RootChecker {
     fun isRootGranted(): Boolean {
-        val result = Shell().getOutput("su -c whoami")
+        val result = "su -c whoami".runCommandOutput()
         return result == "root"
     }
 
