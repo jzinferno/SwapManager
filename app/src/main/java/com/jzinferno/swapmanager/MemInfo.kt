@@ -4,8 +4,7 @@ import java.io.File
 
 class MemInfo {
     private fun getMemInfoValue(string: String): Long {
-        val memInfoFile = File("/proc/meminfo")
-        val memValue = memInfoFile.readLines().firstOrNull { it.matches(Regex("${string}:.*")) }
+        val memValue = File("/proc/meminfo").readLines().firstOrNull { it.matches(Regex("${string}:.*")) }
         return memValue?.split(Regex("\\s+"))?.get(1)?.toLong()?.times(1024) ?: -1
     }
 

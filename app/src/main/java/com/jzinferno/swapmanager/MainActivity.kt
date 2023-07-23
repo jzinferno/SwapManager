@@ -9,10 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import java.io.File
 import java.io.InputStream
+import kotlin.concurrent.thread
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val ramSlider = findViewById<Slider>(R.id.sliderRam)
         val ramSwitch = findViewById<MaterialSwitch>(R.id.switchRam)
+        val ramCard = findViewById<CardView>(R.id.cardRam)
 
         val homeDir = filesDir.absolutePath
         val scriptsDir = "${homeDir}/scripts"
@@ -41,35 +44,49 @@ class MainActivity : AppCompatActivity() {
         File(scriptsDir).mkdirs()
         assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
         assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
+        for (file in File(scriptsDir).listFiles()!!) if (file.isFile) {
+            file.setExecutable(true)
+        }
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
-                ramSwitch.isChecked = ("su -c grep \"$swapFile\" /proc/swaps".runCommandStatus() == 0)
                 ramSlider.value = getSliderValue()
+                ramSwitch.isEnabled = true
 
-                ramSwitch.isEnabled = getRound(getAvailDataSize()).toInt() > ramSlider.value
-                ramSlider.isEnabled = !ramSwitch.isChecked
-                getToast(":)")
-
-                ramSwitch.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        ramSwitch.isEnabled = false
-                        if ("su -c sh ${scriptsDir}/start.sh ${ramSlider.value.toInt()}".runCommandStatus() != 0) {
-                            getToast("Failed")
-                        }
-                        ramSwitch.isEnabled = true
-                    } else {
-                        ramSwitch.isEnabled = false
-                        if ("su -c sh ${scriptsDir}/stop.sh".runCommandStatus() != 0) {
-                            getToast("Failed")
-                        }
-                        ramSwitch.isEnabled = true
+                thread {
+                    val status = "su -c 'grep $swapFile /proc/swaps'".runCommandStatus()
+                    runOnUiThread {
+                        ramSwitch.isChecked = (status == 0)
+                        ramSlider.isEnabled = !ramSwitch.isChecked
                     }
-
-                    ramSlider.isEnabled = !ramSwitch.isChecked
-                    updateMemoryInfo()
                 }
 
+                ramSlider.addOnChangeListener { _, value, _ ->
+                    ramSwitch.isEnabled = (getRound(getAvailDataSize()).toFloat() >= value)
+                }
+
+                ramCard.setOnClickListener {
+                    if (ramSwitch.isEnabled) ramSwitch.performClick()
+                }
+
+                ramSwitch.setOnCheckedChangeListener { _, isChecked ->
+                    ramSwitch.isEnabled = false
+                    val swapCommand = if (isChecked) {
+                        "su -c '${scriptsDir}/start.sh ${ramSlider.value.toInt()}'"
+                    } else {
+                        "su -c '${scriptsDir}/stop.sh'"
+                    }
+
+                    thread {
+                        val status = swapCommand.runCommandStatus()
+                        runOnUiThread {
+                            if (status != 0) getToast("Failed")
+                            ramSlider.isEnabled = !ramSwitch.isChecked
+                            ramSwitch.isEnabled = true
+                            updateMemoryInfo()
+                        }
+                    }
+                }
             } else {
                 getToast(":(")
             }
@@ -112,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         val result = if (File(swapFile).exists() && RootChecker().isRootGranted()) {
             getSwapSizeGB()
         } else {
-            2.0
+            2
         }
         return result.toFloat()
     }

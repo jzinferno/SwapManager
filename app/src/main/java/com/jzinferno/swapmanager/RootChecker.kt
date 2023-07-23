@@ -4,7 +4,7 @@ import java.io.File
 
 class RootChecker {
     fun isRootGranted(): Boolean {
-        val result = "su -c whoami".runCommandOutput()
+        val result = "su -c 'whoami'".runCommandOutput()
         return result == "root"
     }
 
@@ -20,12 +20,8 @@ class RootChecker {
             "/system/xbin/",
             "/data/local/xbin/",
             "/data/local/bin/")
-        var search: File
-        for (path: String in paths) {
-            search = File(path, "su")
-            if (search.exists()) {
-                return true
-            }
+        for (path: String in paths) if (File(path, "su").exists()) {
+            return true
         }
         return false
     }
