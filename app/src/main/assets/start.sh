@@ -1,28 +1,27 @@
 #!/system/bin/sh
 
-SWAPDIR="/data/local/jzinferno"
-SWAPFILE="$SWAPDIR/swapfile"
+DIR="$(cd "$(dirname "$0")" && pwd)"
+SWAPFILE=/data/local/jzinferno/swapfile
 
-grep $SWAPFILE "/proc/swaps"
-if [ ! $? -eq 0 ]; then
-    rm -rf $SWAPFILE
+if ! sh "$DIR/stop.sh"; then
+    exit 1
 fi
 
 if [ ! -f $SWAPFILE ]; then
-    mkdir -p $SWAPDIR
-    fallocate -l "$1"G $SWAPFILE
-    chmod 600 $SWAPFILE
+    mkdir -p "$(dirname $SWAPFILE)"
+    fallocate -l "${1}G" $SWAPFILE
+    chmod 0600 $SWAPFILE
     mkswap $SWAPFILE
 fi
 
 if [ -f $SWAPFILE ]; then
-    grep $SWAPFILE "/proc/swaps"
-    if [ ! $? -eq 0 ]; then
-        swapon $SWAPFILE
-        if [ ! $? -eq 0 ]; then
+    if ! grep -q $SWAPFILE /proc/swaps; then
+        if ! swapon $SWAPFILE; then
             exit 1
         fi
     fi
+else
+    exit 1
 fi
 
 exit 0

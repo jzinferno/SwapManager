@@ -1,16 +1,16 @@
 #!/system/bin/sh
 
-SWAPFILE="/data/local/jzinferno/swapfile"
+SWAPFILE=/data/local/jzinferno/swapfile
 
 if [ -f $SWAPFILE ]; then
-    grep $SWAPFILE "/proc/swaps"
-    if [ $? -eq 0 ]; then
-        swapoff $SWAPFILE
-        if [ ! $? -eq 0 ]; then
+    if grep -q $SWAPFILE /proc/swaps; then
+        if ! swapoff $SWAPFILE; then
             exit 1
         fi
     fi
-    rm -rf $SWAPFILE
+    if ! rm -rf $SWAPFILE; then
+        exit 1
+    fi
 fi
 
 exit 0
