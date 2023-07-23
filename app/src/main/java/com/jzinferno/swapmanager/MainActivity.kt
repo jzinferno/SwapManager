@@ -44,9 +44,6 @@ class MainActivity : AppCompatActivity() {
         File(scriptsDir).mkdirs()
         assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
         assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
-        for (file in File(scriptsDir).listFiles()!!) if (file.isFile) {
-            file.setExecutable(true)
-        }
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 ramSwitch.isEnabled = true
 
                 thread {
-                    val status = "su -c 'grep $swapFile /proc/swaps'".runCommandStatus()
+                    val status = "su -c grep -q $swapFile /proc/swaps".runCommandStatus()
                     runOnUiThread {
                         ramSwitch.isChecked = (status == 0)
                         ramSlider.isEnabled = !ramSwitch.isChecked
@@ -72,9 +69,9 @@ class MainActivity : AppCompatActivity() {
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
                     ramSwitch.isEnabled = false
                     val swapCommand = if (isChecked) {
-                        "su -c '${scriptsDir}/start.sh ${ramSlider.value.toInt()}'"
+                        "su -c sh ${scriptsDir}/start.sh ${ramSlider.value.toInt()}"
                     } else {
-                        "su -c '${scriptsDir}/stop.sh'"
+                        "su -c sh ${scriptsDir}/stop.sh"
                     }
 
                     thread {

@@ -1,10 +1,9 @@
 #!/system/bin/sh
 
-DIR="$(cd "$(dirname "$0")" && pwd)"
 SWAPFILE=/data/local/jzinferno/swapfile
 
-if ! sh "$DIR/stop.sh"; then
-    exit 1
+if ! grep -q $SWAPFILE /proc/swaps; then
+    rm -rf $SWAPFILE
 fi
 
 if [ ! -f $SWAPFILE ]; then
