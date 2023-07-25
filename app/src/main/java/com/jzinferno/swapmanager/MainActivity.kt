@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -124,11 +123,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LogActivity::class.java))
         }
 
-        findViewById<ImageView>(R.id.imageTelegram).setOnClickListener {
+        findViewById<Button>(R.id.linkTelegram).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/jzinferno")))
         }
 
-        findViewById<ImageView>(R.id.imageGithub).setOnClickListener {
+        findViewById<Button>(R.id.linkGithub).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jzinferno")))
         }
     }

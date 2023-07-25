@@ -16,7 +16,9 @@
     <string name="jzinferno">\@jzinferno</string>
     <string name="expand_by">Expanded by</string>
     <string name="links">Links</string>
+    <string name="journal">Journal</string>
     <string name="device_isn_t_rooted">Device isn\'t Rooted!</string>
     <string name="root_access_denied">Root access denied!</string>
-    <string name="logs">Logs</string>
+    <string name="telegram">Telegram</string>
+    <string name="github">GitHub</string>
 </resources>
