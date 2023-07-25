@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.StatFs
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,12 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val homeDir = filesDir.absolutePath
+
         val ramSlider = findViewById<Slider>(R.id.sliderRam)
         val ramSwitch = findViewById<MaterialSwitch>(R.id.switchRam)
         val ramCard = findViewById<CardView>(R.id.cardRam)
-
-        val homeDir = filesDir.absolutePath
-        val scriptsDir = "${homeDir}/scripts"
 
         fun InputStream.toFile(to: File) {
             this.use { input ->
@@ -36,27 +36,46 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        assets.open("swap.sh").toFile(File(homeDir, "swap.sh"))
 
-        if (File(scriptsDir).exists()) {
-            File(scriptsDir).deleteRecursively()
+        fun getToast(string: String) {
+            Toast.makeText(this, string, Toast.LENGTH_LONG).show()
         }
 
-        File(scriptsDir).mkdirs()
-        assets.open("start.sh").toFile(File(scriptsDir, "start.sh"))
-        assets.open("stop.sh").toFile(File(scriptsDir, "stop.sh"))
+        fun saveLog(string: String) {
+            "sh ${homeDir}/swap.sh log $string".runCommand()
+        }
+
+        val swapFile = "sh ${homeDir}/swap.sh".runCommandOutput()
+        if (!File("sh ${homeDir}/swap.sh log".runCommandOutput()).exists()) {
+            saveLog("--clear")
+        }
+
+        fun getSwapSizeGB(): Int {
+            val getFile = File(swapFile)
+            val sizeInGigaBytes: Int = (getFile.length().toDouble() / 1073741824).toInt()
+            return if (getFile.exists()) {
+                sizeInGigaBytes
+            } else {
+                0
+            }
+        }
+
+        fun getSliderValue(): Float {
+            val result = if (File(swapFile).exists() && RootChecker().isRootGranted()) {
+                getSwapSizeGB()
+            } else {
+                2
+            }
+            return result.toFloat()
+        }
 
         if (RootChecker().isRootPresent()) {
             if (RootChecker().isRootGranted()) {
                 ramSlider.value = getSliderValue()
                 ramSwitch.isEnabled = true
-
-                thread {
-                    val status = "su -c grep -q $swapFile /proc/swaps".runCommandStatus()
-                    runOnUiThread {
-                        ramSwitch.isChecked = (status == 0)
-                        ramSlider.isEnabled = !ramSwitch.isChecked
-                    }
-                }
+                ramSwitch.isChecked = File(swapFile).exists()
+                ramSlider.isEnabled = !ramSwitch.isChecked
 
                 ramSlider.addOnChangeListener { _, value, _ ->
                     ramSwitch.isEnabled = (getRound(getAvailDataSize()).toFloat() >= value)
@@ -69,9 +88,13 @@ class MainActivity : AppCompatActivity() {
                 ramSwitch.setOnCheckedChangeListener { _, isChecked ->
                     ramSwitch.isEnabled = false
                     val swapCommand = if (isChecked) {
-                        "su -c sh ${scriptsDir}/start.sh ${ramSlider.value.toInt()}"
+                        if (File(swapFile).exists() && getSwapSizeGB() == getSliderValue().toInt()) {
+                            "su -c sh ${homeDir}/swap.sh start --restart"
+                        } else {
+                            "su -c sh ${homeDir}/swap.sh start ${ramSlider.value.toInt()}"
+                        }
                     } else {
-                        "su -c sh ${scriptsDir}/stop.sh"
+                        "su -c sh ${homeDir}/swap.sh stop"
                     }
 
                     thread {
@@ -85,15 +108,20 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                getToast(":(")
+                getToast(getString(R.string.root_access_denied))
+                saveLog(getString(R.string.root_access_denied))
             }
         } else {
-            getToast("Device isn't Rooted!")
+            getToast(getString(R.string.device_isn_t_rooted))
+            saveLog(getString(R.string.device_isn_t_rooted))
         }
 
-        val textRefresh = findViewById<TextView>(R.id.textRefresh)
-        textRefresh.setOnClickListener {
+        findViewById<TextView>(R.id.buttonRefresh).setOnClickListener {
             updateMemoryInfo()
+        }
+
+        findViewById<Button>(R.id.buttonLog).setOnClickListener {
+            startActivity(Intent(this, LogActivity::class.java))
         }
 
         findViewById<ImageView>(R.id.imageTelegram).setOnClickListener {
@@ -110,27 +138,6 @@ class MainActivity : AppCompatActivity() {
         updateMemoryInfo()
     }
 
-    private val swapFile = "/data/local/jzinferno/swapfile"
-
-    private fun getSwapSizeGB(): Int {
-        val getFile = File(swapFile)
-        val sizeInGigaBytes: Int = (getFile.length().toDouble() / 1073741824).toInt()
-        return if (getFile.exists()) {
-            sizeInGigaBytes
-        } else {
-            0
-        }
-    }
-
-    private fun getSliderValue(): Float {
-        val result = if (File(swapFile).exists() && RootChecker().isRootGranted()) {
-            getSwapSizeGB()
-        } else {
-            2
-        }
-        return result.toFloat()
-    }
-
     private fun getAvailDataSize(): Long {
         val dataDirectory: File = Environment.getDataDirectory()
         val dataStat = StatFs(dataDirectory.path)
@@ -139,10 +146,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun getRound(long: Long): Double {
         return ((long.toDouble() / 1073741824) * 10.0).roundToInt() / 10.0
-    }
-
-    private fun getToast(string: String) {
-        Toast.makeText(this, string, Toast.LENGTH_LONG).show()
     }
 
     private fun updateMemoryInfo() {

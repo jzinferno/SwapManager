@@ -44,7 +44,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_14sdp">
+            android:paddingBottom="@dimen/_16sdp"
+            android:paddingHorizontal="@dimen/_16sdp">
 
             <TextView
                 android:id="@+id/textMemoryInfo"
@@ -52,45 +53,41 @@
                 android:layout_height="wrap_content"
                 android:text="@string/memory_info"
                 android:textColor="@color/white_black"
-                android:textSize="@dimen/_14ssp"
-                android:paddingStart="@dimen/_3sdp"
-                android:paddingEnd="@dimen/_3sdp"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/buttonRefresh"
+                app:layout_constraintBottom_toBottomOf="@id/buttonRefresh"/>
 
-            <TextView
-                android:id="@+id/textRefresh"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRefresh"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:paddingStart="@dimen/_3ssp"
-                android:paddingEnd="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_1sdp"
-                android:shadowRadius="2"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:text="@string/refresh"
+                android:textAllCaps="false"
                 android:textColor="@color/primary"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintBottom_toBottomOf="@id/textMemoryInfo"
+                android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textMemoryInfo"
-                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <LinearLayout
                 android:id="@+id/layoutData"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@id/layoutRam"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
+                app:layout_constraintTop_toBottomOf="@id/buttonRefresh">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:src="@drawable/ic_memory"
                     android:tint="@color/white_black" />
 
@@ -115,16 +112,16 @@
                 android:id="@+id/layoutRam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@id/layoutSwap"
                 app:layout_constraintStart_toEndOf="@id/layoutData"
-                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
+                app:layout_constraintTop_toBottomOf="@id/buttonRefresh">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:src="@drawable/ic_memory"
                     android:tint="@color/white_black" />
 
@@ -149,16 +146,16 @@
                 android:id="@+id/layoutSwap"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/layoutRam"
-                app:layout_constraintTop_toBottomOf="@id/textMemoryInfo">
+                app:layout_constraintTop_toBottomOf="@id/buttonRefresh">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:src="@drawable/ic_memory"
                     android:tint="@color/white_black" />
 
@@ -183,7 +180,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -264,7 +261,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_16sdp">
+                    android:paddingBottom="@dimen/_16sdp"
+                    android:paddingHorizontal="@dimen/_16sdp">
 
                     <TextView
                         android:id="@+id/textExpandBy"
@@ -272,9 +270,26 @@
                         android:layout_height="wrap_content"
                         android:text="@string/expand_by"
                         android:textColor="@color/white_black"
-                        android:textSize="@dimen/_11ssp"
+                        android:textSize="@dimen/_13ssp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/buttonLog"
+                        app:layout_constraintBottom_toBottomOf="@id/buttonLog"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonLog"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/logs"
+                        android:textAllCaps="false"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                     <com.google.android.material.slider.Slider
                         android:id="@+id/sliderRam"
@@ -286,7 +301,7 @@
                         android:valueTo="8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/textExpandBy"
+                        app:layout_constraintTop_toBottomOf="@id/buttonLog"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
@@ -410,6 +425,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

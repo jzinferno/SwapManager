@@ -14,6 +14,9 @@
     <string name="_6gb">6.0 ГБ</string>
     <string name="_8gb">8.0 ГБ</string>
     <string name="jzinferno">\@jzinferno</string>
-    <string name="expand_by">РАСШИРИТЬ</string>
+    <string name="expand_by">Расширить</string>
     <string name="links">Ссылки</string>
+    <string name="device_isn_t_rooted">Device isn\'t Rooted!</string>
+    <string name="root_access_denied">Root access denied!</string>
+    <string name="logs">Журнал</string>
 </resources>

@@ -4,6 +4,17 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import java.lang.ProcessBuilder.Redirect
 
+fun String.runCommand() {
+    val process = ProcessBuilder(*split(" ").toTypedArray())
+        .directory(File("/"))
+        .redirectOutput(Redirect.INHERIT)
+        .redirectError(Redirect.INHERIT)
+        .start()
+    if (!process.waitFor(10, TimeUnit.SECONDS)) {
+        process.destroy()
+    }
+}
+
 fun String.runCommandStatus(): Int {
     val process = ProcessBuilder(*split(" ").toTypedArray())
         .directory(File("/"))
