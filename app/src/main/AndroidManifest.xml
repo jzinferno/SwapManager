@@ -10,7 +10,7 @@
         android:theme="@style/Theme.SwapManager"
         tools:targetApi="33">
         <activity
-            android:name=".LogActivity"
+            android:name=".JournalActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

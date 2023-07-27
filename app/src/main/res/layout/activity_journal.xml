@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".LogActivity">
+    tools:context=".JournalActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:clipToPadding="false"
         android:fillViewport="true"
         android:scrollbars="none"
-        android:padding="@dimen/_1sdp">
+        android:padding="@dimen/_2sdp">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -21,11 +21,10 @@
             android:overScrollMode="always"
             android:clipToPadding="false"
             android:fillViewport="true"
-            android:scrollbars="none"
-            android:padding="@dimen/_1sdp">
+            android:scrollbars="none">
 
             <TextView
-                android:id="@+id/textViewLog"
+                android:id="@+id/journalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

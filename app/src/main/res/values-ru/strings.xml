@@ -20,4 +20,5 @@
     <string name="journal">Журнал</string>
     <string name="device_isn_t_rooted">Устройство не рутировано!</string>
     <string name="root_access_denied">В root-доступе отказано!</string>
+    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
 </resources>

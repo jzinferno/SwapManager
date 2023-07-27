@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.buttonLog).setOnClickListener {
-            startActivity(Intent(this, LogActivity::class.java))
+            startActivity(Intent(this, JournalActivity::class.java))
         }
 
         findViewById<Button>(R.id.linkJzinfernoTelegram).setOnClickListener {
