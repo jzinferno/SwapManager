@@ -123,12 +123,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LogActivity::class.java))
         }
 
-        findViewById<Button>(R.id.linkTelegram).setOnClickListener {
+        findViewById<Button>(R.id.linkJzinfernoTelegram).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/jzinferno")))
         }
 
-        findViewById<Button>(R.id.linkGithub).setOnClickListener {
+        findViewById<Button>(R.id.linkJzinfernoGithub).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jzinferno")))
+        }
+
+        findViewById<Button>(R.id.linkVierronTelegram).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/Vierron")))
+        }
+
+        findViewById<Button>(R.id.linkVierronGithub).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Vierron")))
         }
     }
 

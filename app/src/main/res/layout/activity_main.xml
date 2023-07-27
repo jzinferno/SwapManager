@@ -380,55 +380,119 @@
                         android:textColor="@color/white_black"
                         android:textSize="@dimen/_14ssp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/textViewJzinferno"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textViewJzinferno"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layoutJzinfernoLinks"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/jzinferno"
-                        android:textColor="@color/link_icons"
-                        android:textSize="@dimen/_11ssp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintTop_toBottomOf="@id/textViewLinks"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal"
+                        android:gravity="start"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLinks">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/linkTelegram"
-                        style="@style/Widget.Material3.Button.TextButton.Icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:paddingVertical="@dimen/_1sdp"
-                        android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="@string/telegram"
-                        android:textSize="@dimen/_11ssp"
-                        app:icon="@drawable/ic_telegram"
-                        app:layout_constraintBottom_toBottomOf="@id/textViewJzinferno"
-                        app:layout_constraintStart_toEndOf="@id/textViewJzinferno"
-                        app:layout_constraintTop_toTopOf="@id/textViewJzinferno"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/jzinferno"
+                            android:textColor="@color/link_icons"
+                            android:textSize="@dimen/_11ssp"/>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/linkGithub"
-                        style="@style/Widget.Material3.Button.TextButton.Icon"
-                        android:layout_width="wrap_content"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/linkJzinfernoTelegram"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            app:iconSize="@dimen/_24ssp"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:icon="@drawable/ic_telegram"
+                            app:iconGravity="start"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:insetBottom="0dp"
+                            android:insetTop="0dp"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/linkJzinfernoGithub"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            app:iconSize="@dimen/_24ssp"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:icon="@drawable/ic_github"
+                            app:iconGravity="start"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:insetBottom="0dp"
+                            android:insetTop="0dp"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutVierronLinks"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:paddingVertical="@dimen/_1sdp"
-                        android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="@string/github"
-                        android:textSize="@dimen/_11ssp"
-                        app:icon="@drawable/ic_github"
-                        app:layout_constraintBottom_toBottomOf="@id/textViewJzinferno"
-                        app:layout_constraintStart_toEndOf="@id/linkTelegram"
-                        app:layout_constraintTop_toTopOf="@id/textViewJzinferno"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal"
+                        android:gravity="start"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layoutJzinfernoLinks">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vierron"
+                            android:textColor="@color/link_icons"
+                            android:textSize="@dimen/_11ssp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/linkVierronTelegram"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            app:iconSize="@dimen/_24ssp"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:icon="@drawable/ic_telegram"
+                            app:iconGravity="start"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:insetBottom="0dp"
+                            android:insetTop="0dp"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/linkVierronGithub"
+                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            app:iconSize="@dimen/_24ssp"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:icon="@drawable/ic_github"
+                            app:iconGravity="start"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:insetBottom="0dp"
+                            android:insetTop="0dp"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

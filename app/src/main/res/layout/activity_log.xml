@@ -10,13 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="always"
-        android:fillViewport="true">
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:padding="@dimen/_1sdp">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="always"
-            android:fillViewport="true">
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:padding="@dimen/_1sdp">
 
             <TextView
                 android:id="@+id/textViewLog"
