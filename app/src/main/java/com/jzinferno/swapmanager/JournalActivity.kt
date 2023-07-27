@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import java.io.File
